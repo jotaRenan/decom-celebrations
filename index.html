@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Phaser Basic Project Template</title>
+	<script src="phaser.min.js"></script>
+	<script src="Boot.js"></script>
+	<!-- <script src="Boot6.js"></script> -->
+	<script src="Preloader.js"></script>
+	<script src="MainMenu.js"></script>
+	<script src="Game.js"></script>
+	<script src="SelectChar.js"></script>
+	<style type="text/css" media="screen">
+
+		html, 
+		body {
+			padding: 0;
+			margin: 0;
+		}
+
+		.container {
+			max-width: 940px;
+			margin: 0 auto;
+		}
+
+		#gameContainer canvas {
+			margin: auto;
+		}
+		.expositor {
+			margin: 2vh;
+			padding: 3%;
+			background-color: lightblue;
+		}
+
+		.historia {
+			margin: auto;
+			max-width: 800px;
+			border-top-right-radius: 12px;
+			border-top-left-radius:  12px;
+			border: 1px grey solid;
+			background-color: lightgrey;
+		}
+		.historia p {
+			padding: 1%;
+			margin-bottom: 0;
+			margin-top: 0;
+		}
+
+	</style>
+</head>
+<body>
+<div class="container">
+	<main class="expositor">
+		<div class="historia">
+			<h3>O DECOM precisa da sua ajuda!</h3>
+			<p>Dias antes do DECOM Celebrations, evento de aniversário dos 30 anos do
+			Departamente de Computação do CEFET-MG, os famigerados <span class="negr">
+			catioros do Campus 2</span> entraram no prédio do departamento e fizeram uma algazarra!
+			Ajude o pessoal recolhendo todos os objetos que os cachorros espalharam pelo Campus 2!
+			Tempo é primordial, e o aluno que recolher tudo mais rápido estará livre do TCC.</p>
+			<div id="gameContainer"></div>
+		</div>
+	</main>
+</div>
+<script type="text/javascript">
+
+window.onload = function() {
+
+	//	Create your Phaser game and inject it into the gameContainer div.
+	//	We did it in a window.onload event, but you can do it anywhere (requireJS load, anonymous function, jQuery dom ready, - whatever floats your boat)
+	var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameContainer');
+
+	//	Add the States your game has.
+	//	You don't have to do this in the html, it could be done in your Boot state too, but for simplicity I'll keep it here.
+	// game.state.add('Boot6', BasicGame.Boot);
+	game.state.add('Boot', BasicGame.Boot);
+	game.state.add('Preloader', BasicGame.Preloader);
+	game.state.add('MainMenu', BasicGame.MainMenu);
+	game.state.add('Game', BasicGame.Game);
+	game.state.add('SelectChar', BasicGame.SelectChar);
+
+	//	Now start the Boot state.
+	game.state.start('Boot');
+
+};
+
+</script>
+
+</body>
+</html>
