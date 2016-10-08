@@ -165,6 +165,7 @@ BasicGame.Game.prototype = {
       if (this.isMP) {
         this.physics.arcade.collide(player2, layer);
         player2.body.velocity.x = 0;
+        this.physics.arcade.overlap(player2, stars, this.collectStar, null, this);
       }
       //this.physics.arcade.collide(player, stars);
       
