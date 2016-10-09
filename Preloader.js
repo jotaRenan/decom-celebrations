@@ -15,7 +15,7 @@ BasicGame.Preloader.prototype = {
 		//	These are the assets we loaded in Boot.js
 		//	A nice sparkly background and a loading progress bar
 		this.background = this.add.sprite(0, 0, 'preloaderBackground');
-		this.preloadBar = this.add.sprite(300, 400, 'preloaderBar');
+		this.preloadBar = this.add.sprite(200, 400, 'preloaderBar');
 
 		//	This sets the preloadBar sprite as a loader sprite.
 		//	What that does is automatically crop the sprite from 0 to full-width
@@ -29,24 +29,31 @@ BasicGame.Preloader.prototype = {
 		this.load.atlas('singleBtn', 'starstruck/btn_single.png', 'starstruck/btn_single.json');
 		this.load.atlas('multiBtn', 'starstruck/btn_multi.png', 'starstruck/btn_single.json');
 		this.load.atlas('cfgButton', 'starstruck/btn_cfg.png', 'starstruck/btn_single.json');
-		//this.load.audio('titleMusic', ['audio/main_menu.mp3']);
+		this.load.audio('coletou', ['audio/coletou.wav']);
+    this.load.audio('menuSong', 'audio/menu.mp3');
+    this.load.audio('btn-click', 'audio/btn_click.mp3');
+    this.load.audio('game-Song', 'audio/gameSong.mp3');
+    this.load.audio('winSong', 'audio/win.mp3');
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
 		//	+ lots of other required assets here
 		this.load.tilemap('level1', 'starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.image('tiles-1', 'starstruck/teste.png');
-    this.load.spritesheet('dude', 'starstruck/dude.png', 32, 48);
-    this.load.spritesheet('dudeInv', 'starstruck/cefetoso.png', 32, 48);
+    this.load.spritesheet('dude', 'starstruck/char2.png', 32, 48);
+    this.load.spritesheet('dudeInv', 'starstruck/char1.png', 32, 48);
     this.load.spritesheet('droid', 'starstruck/droid.png', 32, 32);
+    this.load.spritesheet('btns', 'starstruck/controls.png', 25, 25);
     this.load.image('starSmall', 'starstruck/star.png');
     this.load.image('starBig', 'starstruck/star2.png');
-    this.load.image('background', 'starstruck/bgAzul.png');
+    this.load.image('background', 'starstruck/26.jpg');
     this.load.image('cafe', 'starstruck/coffe.png');
     this.load.image('computador', 'starstruck/computer.png');
     this.load.image('pinguim', 'starstruck/pinguim.png');
     this.load.image('som', 'starstruck/som.png');
     this.load.image('roteador', 'starstruck/router.png');
     this.load.image('pgBar1', 'starstruck/progress_bar.png');
+    this.load.image('endBG', 'starstruck/end-bg.png');
   	//this.load.image('star', 'start/star.png');
+
 	},
 
 	create: function () {

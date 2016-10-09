@@ -10,6 +10,7 @@
 	<script src="MainMenu.js"></script>
 	<script src="Game.js"></script>
 	<script src="SelectChar.js"></script>
+	<script src="endState.js"></script>
 	<style type="text/css" media="screen">
 
 		html, 
@@ -78,6 +79,7 @@ window.onload = function() {
 	game.state.add('MainMenu', BasicGame.MainMenu);
 	game.state.add('Game', BasicGame.Game);
 	game.state.add('SelectChar', BasicGame.SelectChar);
+	game.state.add('endState', BasicGame.EndState);
 
 	//	Now start the Boot state.
 	game.state.start('Boot');

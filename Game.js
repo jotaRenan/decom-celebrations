@@ -27,8 +27,8 @@ BasicGame.Game = function (game) {
     this.layer;
     this.player;
 
-    this.p1facing = 'left';
-    this.p2facing = 'left';
+    this.p1facing = 'idle';
+    this.p2facing = 'idle';
     this.p1jumpTimer = 0;
     this.p2jumpTimer = 0;
     this.cursors;
@@ -44,12 +44,18 @@ BasicGame.Game = function (game) {
     this.textoTempo;
     this.listaObjetos;
     this.distanciaColetados;
+    this.somColeta;
+    this.music = null;
+    this.isAudioOn;
+    this.isMusicOn;
   };
 
 BasicGame.Game.prototype = {
 
-  init: function(isMultiPlayer, dificuldade) {
+  init: function(isMultiPlayer, isAudioOn, isMusicOn, dificuldade) {
     this.isMP = isMultiPlayer;
+    this.isAudioOn = isAudioOn;
+    this.isMusicOn = isMusicOn;
     this.dif = dificuldade;
   },
 
@@ -60,8 +66,9 @@ BasicGame.Game.prototype = {
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.stage.backgroundColor = '#000000';
 
-    bg = this.add.tileSprite(0, 0, 1200, 1040, 'background');
-    //bg.fixedToCamera = true;
+    bg = this.add.tileSprite(-100, 0, 900, 600, 'background');
+    bg.fixedToCamera = true;
+    bg.tilePosition.x = -(this.camera.x * 0.7);
 
     map = this.add.tilemap('level1');
     map.addTilesetImage('tiles-1');
@@ -70,7 +77,7 @@ BasicGame.Game.prototype = {
     //  Un-comment this on to see the collision tiles
     //layer.debug = true;
     layer.resizeWorld();
-    this.physics.arcade.gravity.y = 250;
+    this.physics.arcade.gravity.y = 600;
 
     player = this.add.sprite(32, 32, 'dude');
     this.physics.enable(player, Phaser.Physics.ARCADE);
@@ -78,9 +85,10 @@ BasicGame.Game.prototype = {
     player.body.collideWorldBounds = true;
     player.body.setSize(20, 32, 5, 16);
     player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('turn', [4], 20, true);
+    player.animations.add('idle', [4], 20, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
     player.pontuaçao = 0;
+    player.frame = 4;
 
     listaObjetos = ['cafe', 'computador', 'pinguim', 'som', 'roteador'];
     // -- Organiza itens ja coletados. Necessario adicionar mais.
@@ -92,6 +100,12 @@ BasicGame.Game.prototype = {
     player.coletados['som'] = false;
     player.coletados['roteador'] = false;
 
+    if (this.isMusicOn) {
+      music = this.add.audio('game-Song', 0.3, true);
+      music.play( '', 0, 0.3, true);
+      music.onLoop.add(this.playMusic, this);
+    }
+
     if (!this.isMP) {
       this.camera.follow(player);
     } 
@@ -102,8 +116,9 @@ BasicGame.Game.prototype = {
       player2.body.collideWorldBounds = true;
       player2.body.setSize(20, 32, 5, 16);
       player2.animations.add('left', [0, 1, 2, 3], 10, true);
-      player2.animations.add('turn', [4], 20, true);
+      player2.animations.add('idle', [4], 20, true);
       player2.animations.add('right', [5, 6, 7, 8], 10, true);
+      player2.frame = 4;
       // Define teclas de comando pro p2
       upButton = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
       downButton = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -157,6 +172,8 @@ BasicGame.Game.prototype = {
     var barraProgresso = this.add.sprite(10, 26, 'pgBar1');
     barraProgresso.fixedToCamera = true;
 
+    this.somColeta = this.game.add.audio('coletou');
+
     // variavel inicio ajuda a contar tempo
     this.inicio = this.time.now;
     },
@@ -203,7 +220,7 @@ BasicGame.Game.prototype = {
           else {
             player.frame = 5;
           }
-
+          player.frame = 4;
           this.facing = 'idle';
         }
       }
@@ -240,7 +257,7 @@ BasicGame.Game.prototype = {
             else {
               player2.frame = 5;
             }
-
+            player2.frame = 4;
             this.p2facing = 'idle';
           }
         }
@@ -262,17 +279,26 @@ BasicGame.Game.prototype = {
     //console.log(tempoFinal);
     var nome = prompt("Insira aqui o seu nome:", "Adalbinho");
     //console.log(nome);
+    console.log(tempoFinal + ' ');
+    music.stop();
     //  Then let's go back to the main menu.
     
-    this.state.start('MainMenu');
+    this.state.start('endState');
 
+  },
+
+  playMusic: function() {
+    music.play('', 0, 0.4, true);
   },
 
   collectStar: function(player, star) {
     if (!player.coletados[star.key]) {
       player.coletados[star.key] = true;
       star.kill();
-      var img = this.add.sprite(this.distanciaColetados*78, 32, star.key);
+      if (this.isAudioOn) {
+        this.somColeta.play();
+      }
+      var img = this.add.sprite(26 + (this.distanciaColetados*50), 32, star.key);
       this.distanciaColetados++;
       img.fixedToCamera = true;
       if (++player.pontuaçao === 5) {
