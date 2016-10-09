@@ -60,8 +60,8 @@ BasicGame.Game.prototype = {
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.stage.backgroundColor = '#000000';
 
-    bg = this.add.tileSprite(0, 0, 1200, 1040, 'background');
-    //bg.fixedToCamera = true;
+    bg = this.add.tileSprite(-100, 0, 900, 600, 'background');
+    bg.fixedToCamera = true;
 
     map = this.add.tilemap('level1');
     map.addTilesetImage('tiles-1');
