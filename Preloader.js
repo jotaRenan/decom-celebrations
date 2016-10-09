@@ -25,7 +25,6 @@ BasicGame.Preloader.prototype = {
 		//	Here we load the rest of the assets our game needs.
 		//	As this is just a Project Template I've not provided these assets, swap them for your own.
 		this.load.image('titlepage', 'starstruck/bgDecom.png');
-		console.log("oi");
 		//this.load.image('playButton', 'starstruck/button_texture_atlas.png');
 		this.load.atlas('singleBtn', 'starstruck/btn_single.png', 'starstruck/btn_single.json');
 		this.load.atlas('multiBtn', 'starstruck/btn_multi.png', 'starstruck/btn_single.json');
@@ -34,7 +33,7 @@ BasicGame.Preloader.prototype = {
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
 		//	+ lots of other required assets here
 		this.load.tilemap('level1', 'starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
-    this.load.image('tiles-1', 'starstruck/tiles-1.png');
+    this.load.image('tiles-1', 'starstruck/teste.png');
     this.load.spritesheet('dude', 'starstruck/dude.png', 32, 48);
     this.load.spritesheet('dudeInv', 'starstruck/cefetoso.png', 32, 48);
     this.load.spritesheet('droid', 'starstruck/droid.png', 32, 32);

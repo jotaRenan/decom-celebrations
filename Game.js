@@ -59,8 +59,10 @@ BasicGame.Game.prototype = {
     //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.stage.backgroundColor = '#000000';
-    bg = this.add.tileSprite(0, 0, 800, 600, 'background');
-    bg.fixedToCamera = true;
+
+    bg = this.add.tileSprite(0, 0, 1200, 1040, 'background');
+    //bg.fixedToCamera = true;
+
     map = this.add.tilemap('level1');
     map.addTilesetImage('tiles-1');
     map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
@@ -89,7 +91,6 @@ BasicGame.Game.prototype = {
     player.coletados['pinguim'] = false;
     player.coletados['som'] = false;
     player.coletados['roteador'] = false;
-
 
     if (!this.isMP) {
       this.camera.follow(player);
