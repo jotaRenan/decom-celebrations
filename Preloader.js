@@ -33,6 +33,7 @@ BasicGame.Preloader.prototype = {
     this.load.audio('menuSong', 'audio/menu.mp3');
     this.load.audio('btn-click', 'audio/btn_click.mp3');
     this.load.audio('game-Song', 'audio/gameSong.mp3');
+    this.load.audio('winSong', 'audio/win.mp3');
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
 		//	+ lots of other required assets here
 		this.load.tilemap('level1', 'starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
@@ -50,6 +51,7 @@ BasicGame.Preloader.prototype = {
     this.load.image('som', 'starstruck/som.png');
     this.load.image('roteador', 'starstruck/router.png');
     this.load.image('pgBar1', 'starstruck/progress_bar.png');
+    this.load.image('endBG', 'starstruck/end-bg.png');
   	//this.load.image('star', 'start/star.png');
 
 	},
