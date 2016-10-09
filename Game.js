@@ -44,6 +44,8 @@ BasicGame.Game = function (game) {
     this.textoTempo;
     this.listaObjetos;
     this.distanciaColetados;
+    this.somColeta;
+    this.music = null;
   };
 
 BasicGame.Game.prototype = {
@@ -62,6 +64,7 @@ BasicGame.Game.prototype = {
 
     bg = this.add.tileSprite(-100, 0, 900, 600, 'background');
     bg.fixedToCamera = true;
+    bg.tilePosition.x = -(this.camera.x * 0.7);
 
     map = this.add.tilemap('level1');
     map.addTilesetImage('tiles-1');
@@ -70,7 +73,7 @@ BasicGame.Game.prototype = {
     //  Un-comment this on to see the collision tiles
     //layer.debug = true;
     layer.resizeWorld();
-    this.physics.arcade.gravity.y = 250;
+    this.physics.arcade.gravity.y = 600;
 
     player = this.add.sprite(32, 32, 'dude');
     this.physics.enable(player, Phaser.Physics.ARCADE);
@@ -91,6 +94,10 @@ BasicGame.Game.prototype = {
     player.coletados['pinguim'] = false;
     player.coletados['som'] = false;
     player.coletados['roteador'] = false;
+
+    music = this.add.audio('game-Song', 0.3, true);
+    music.play( '', 0, 0.3, true);
+    music.onLoop.add(this.playMusic, this);
 
     if (!this.isMP) {
       this.camera.follow(player);
@@ -156,6 +163,8 @@ BasicGame.Game.prototype = {
 
     var barraProgresso = this.add.sprite(10, 26, 'pgBar1');
     barraProgresso.fixedToCamera = true;
+
+    this.somColeta = this.game.add.audio('coletou');
 
     // variavel inicio ajuda a contar tempo
     this.inicio = this.time.now;
@@ -260,16 +269,22 @@ BasicGame.Game.prototype = {
     console.log('jogo terminou');
     let tempoFinal = this.time.elapsedSecondsSince(this.inicio).toFixed(3);
     console.log(tempoFinal + ' ');
+    music.stop();
     //  Then let's go back to the main menu.
     
     this.state.start('MainMenu');
 
   },
 
+  playMusic: function() {
+    music.play('', 0, 0.4, true);
+  },
+
   collectStar: function(player, star) {
     if (!player.coletados[star.key]) {
       player.coletados[star.key] = true;
       star.kill();
+      this.somColeta.play();
       var img = this.add.sprite(this.distanciaColetados*78, 32, star.key);
       this.distanciaColetados++;
       img.fixedToCamera = true;
