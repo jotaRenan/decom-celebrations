@@ -20,9 +20,9 @@ BasicGame.MainMenu.prototype = {
 		this.add.sprite(0, 0, 'titlepage');
 
 		//this.playButton = this.add.button(400, 600, 'playButton', this.startGame, this, 'buttonOver', 'buttonOut', 'buttonOver');
-		this.playButton = this.add.button(this.world.centerX -225, 320, 'singleBtn', function() {this.startGame(false)}, this, 2, 1, 0);
-		this.cfgButton = this.add.button(this.world.centerX -225, 400, 'multiBtn', function() {this.startGame(true);}, this, 2, 1, 0);
-		this.selectCharButton = this.add.button(this.world.centerX - 225, 480, 'cfgButton', this.selectChar, this, 2, 1, 0);
+		this.playButton = this.add.button(175, 320, 'singleBtn', function() {this.startGame(false)}, this, 2, 1, 0);
+		this.cfgButton = this.add.button(175, 400, 'multiBtn', function() {this.startGame(true);}, this, 2, 1, 0);
+		this.selectCharButton = this.add.button(175, 480, 'cfgButton', this.selectChar, this, 2, 1, 0);
 	},
 
 	update: function () {

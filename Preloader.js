@@ -41,6 +41,12 @@ BasicGame.Preloader.prototype = {
     this.load.image('starSmall', 'starstruck/star.png');
     this.load.image('starBig', 'starstruck/star2.png');
     this.load.image('background', 'starstruck/bgAzul.png');
+    this.load.image('cafe', 'starstruck/coffe.png');
+    this.load.image('computador', 'starstruck/computer.png');
+    this.load.image('pinguim', 'starstruck/pinguim.png');
+    this.load.image('som', 'starstruck/som.png');
+    this.load.image('roteador', 'starstruck/router.png');
+    this.load.image('pgBar1', 'starstruck/progress_bar.png');
   	//this.load.image('star', 'start/star.png');
 	},
 

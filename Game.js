@@ -42,6 +42,8 @@ BasicGame.Game = function (game) {
     this.medianY;
     this.worldScale = 1;
     this.textoTempo;
+    this.listaObjetos;
+    this.distanciaColetados;
   };
 
 BasicGame.Game.prototype = {
@@ -53,6 +55,7 @@ BasicGame.Game.prototype = {
 
   create: function () {
     console.log('entrou game');
+    this.distanciaColetados = 1;
     //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.stage.backgroundColor = '#000000';
@@ -77,6 +80,17 @@ BasicGame.Game.prototype = {
     player.animations.add('right', [5, 6, 7, 8], 10, true);
     player.pontuaçao = 0;
 
+    listaObjetos = ['cafe', 'computador', 'pinguim', 'som', 'roteador'];
+    // -- Organiza itens ja coletados. Necessario adicionar mais.
+    player.coletados = {};
+    player.coletados['starBig'] = false;
+    player.coletados['cafe'] = false;
+    player.coletados['computador'] = false;
+    player.coletados['pinguim'] = false;
+    player.coletados['som'] = false;
+    player.coletados['roteador'] = false;
+
+
     if (!this.isMP) {
       this.camera.follow(player);
     } 
@@ -96,6 +110,13 @@ BasicGame.Game.prototype = {
       rightButton = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
 
       player2.pontuaçao = 0;
+      player2.coletados = {};
+      player2.coletados['starBig'] = false;
+      player.coletados['cafe'] = false;
+      player.coletados['computador'] = false;
+      player.coletados['pinguim'] = false;
+      player.coletados['som'] = false;
+      player.coletados['roteador'] = false;
     }
     this.camera.follow(player);
 
@@ -108,15 +129,18 @@ BasicGame.Game.prototype = {
     stars.enableBody = true;
 
     //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++) {
+    var f=0;
+    for (var i = 0; i < 12; i++, f++) {
       //  Create a star inside of the 'stars' group
-      var star = stars.create(i * 70, 0, 'starBig');
-
+      if(f==5)
+        f=0;
+      var star = stars.create( i * 70, 0, listaObjetos[f]);
       //  Let gravity do its thing
       star.body.gravity.y = 300;
       star.body.collideWorldBounds = true;
       //  This just gives each star a slightly random bounce value
       star.body.bounce.y = 0.8 + Math.random() * 0.2;
+    
     } 
 
     //  Indicador de tempo
@@ -129,34 +153,14 @@ BasicGame.Game.prototype = {
     textoTempo.fill = '#43d637';
     textoTempo.fixedToCamera = true;
 
+    var barraProgresso = this.add.sprite(10, 26, 'pgBar1');
+    barraProgresso.fixedToCamera = true;
+
     // variavel inicio ajuda a contar tempo
     this.inicio = this.time.now;
     },
 
     update: function () {
-
-////  
-      // medianX = (player.body.x > player2.body.x) ? (player.body.x - player2.body.x) : (player2.body.x - player.body.x);
-      // medianY =  (player.body.y > player2.body.y) ? (player.body.y - player2.body.y) : (player2.body.y - player.body.y);
-      // this.game.camera.focusOnXY(medianX, medianY);
-
-////
-
-///
-      // if (this.game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
-      //       map.setScale(0.5, 0.5);
-      //   }
-      //   else if (this.game.input.keyboard.isDown(Phaser.Keyboard.F)) {
-      //       this.worldScale -= 0.05;
-      //   }
-        
-      //   // set a minimum and maximum scale value
-      //   this.worldScale = Phaser.Math.clamp(this.worldScale, 0.5, 1);
-        
-      //   // set our world scale as needed
-      //   this.game.world.scale.set(this.worldScale);
-      
-///
 
       textoTempo.text = this.time.elapsedSecondsSince(this.inicio).toFixed(3) ;
       this.physics.arcade.collide(stars, layer);
@@ -260,10 +264,15 @@ BasicGame.Game.prototype = {
   },
 
   collectStar: function(player, star) {
-    star.kill();
-    if (stars.total === 0) {
-      this.quitGame();
-      
+    if (!player.coletados[star.key]) {
+      player.coletados[star.key] = true;
+      star.kill();
+      var img = this.add.sprite(this.distanciaColetados*78, 32, star.key);
+      this.distanciaColetados++;
+      img.fixedToCamera = true;
+      if (++player.pontuaçao === 5) {
+        this.quitGame();
+      }
     }
   },
 
