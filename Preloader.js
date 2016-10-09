@@ -15,7 +15,7 @@ BasicGame.Preloader.prototype = {
 		//	These are the assets we loaded in Boot.js
 		//	A nice sparkly background and a loading progress bar
 		this.background = this.add.sprite(0, 0, 'preloaderBackground');
-		this.preloadBar = this.add.sprite(300, 400, 'preloaderBar');
+		this.preloadBar = this.add.sprite(200, 400, 'preloaderBar');
 
 		//	This sets the preloadBar sprite as a loader sprite.
 		//	What that does is automatically crop the sprite from 0 to full-width
@@ -40,6 +40,7 @@ BasicGame.Preloader.prototype = {
     this.load.spritesheet('dude', 'starstruck/dude.png', 32, 48);
     this.load.spritesheet('dudeInv', 'starstruck/char1.png', 32, 48);
     this.load.spritesheet('droid', 'starstruck/droid.png', 32, 32);
+    this.load.spritesheet('btns', 'starstruck/controls.png', 25, 25);
     this.load.image('starSmall', 'starstruck/star.png');
     this.load.image('starBig', 'starstruck/star2.png');
     this.load.image('background', 'starstruck/26.jpg');
@@ -50,6 +51,7 @@ BasicGame.Preloader.prototype = {
     this.load.image('roteador', 'starstruck/router.png');
     this.load.image('pgBar1', 'starstruck/progress_bar.png');
   	//this.load.image('star', 'start/star.png');
+
 	},
 
 	create: function () {

@@ -3,7 +3,8 @@ BasicGame.MainMenu = function (game) {
 	this.music = null;
 	this.playButton = null;
 	this.selectCharButton = null;
-
+	this.isAudioOn = true;
+	this.isMusicOn = true;
 };
 
 BasicGame.MainMenu.prototype = {
@@ -18,12 +19,15 @@ BasicGame.MainMenu.prototype = {
 		this.click = this.add.audio('btn-click');
 		this.start();
 		//this.music.fadeIn(800);
-
 		this.add.sprite(0, 0, 'titlepage');
 
+		//this.btnMusica = this.add.button();
+		this.btnMusica = this.game.add.button(700,  100, 'btns', this.toggleSong, this, 0, 0, 0);
+		this.btnAudio = this.game.add.button(730,  100, 'btns', this.toggleAudio, this, 2, 2, 2);
+
 		//this.playButton = this.add.button(400, 600, 'playButton', this.startGame, this, 'buttonOver', 'buttonOut', 'buttonOver');
-		this.playButton = this.add.button(175, 320, 'singleBtn', function() {this.click.play(); this.startGame(false)}, this, 2, 1, 0);
-		this.cfgButton = this.add.button(175, 400, 'multiBtn', function() {this.click.play(); this.startGame(true);}, this, 2, 1, 0);
+		this.playButton = this.add.button(175, 320, 'singleBtn', () => {this.click.play(); this.startGame(false, this.isAudioOn, this.isMusicOn);}, this, 2, 1, 0);
+		this.cfgButton = this.add.button(175, 400, 'multiBtn', () => {this.click.play(); this.startGame(true);}, this, 2, 1, 0);
 		this.selectCharButton = this.add.button(175, 480, 'cfgButton', this.selectChar, this, 2, 1, 0);
 	},
 
@@ -33,6 +37,17 @@ BasicGame.MainMenu.prototype = {
 
 	},
 
+	toggleSong: function() {
+		
+		this.music.isPlaying ? this.music.stop() : this.music.play();
+		this.isMusicOn = !this.isMusicOn;
+		this.btnMusica.frame = 1;
+	},
+
+	toggleAudio: function() {
+		this.isAudioOn = !this.isAudioOn;
+		this.btnAudio.frame = 3;
+	},
 
 	start: function() {
 		//this.music.fadeIn(50, true);
@@ -44,14 +59,18 @@ BasicGame.MainMenu.prototype = {
 		this.music.play('', 0, 0.4, true);
 	},
 
-	startGame: function (pointer) {
+	startGame: function (pointer, isAudioOn, isMusicOn) {
 
 		//	Ok, the Play Button has been clicked or touched, so let's stop the music (otherwise it'll carry on playing)
-		this.click.play();
-		this.music.stop();
+		if (this.isAudioOn) {
+			this.click.play();
+		}
+		if (this.music.isPlaying) {
+			this.music.stop();
+		}
 
 		//	And start the actual game
-		this.state.start('Game', true, false, pointer);
+		this.state.start('Game', true, false, pointer, isAudioOn, isMusicOn);
 
 	},
 

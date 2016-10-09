@@ -46,12 +46,16 @@ BasicGame.Game = function (game) {
     this.distanciaColetados;
     this.somColeta;
     this.music = null;
+    this.isAudioOn;
+    this.isMusicOn;
   };
 
 BasicGame.Game.prototype = {
 
-  init: function(isMultiPlayer, dificuldade) {
+  init: function(isMultiPlayer, isAudioOn, isMusicOn, dificuldade) {
     this.isMP = isMultiPlayer;
+    this.isAudioOn = isAudioOn;
+    this.isMusicOn = isMusicOn;
     this.dif = dificuldade;
   },
 
@@ -95,9 +99,11 @@ BasicGame.Game.prototype = {
     player.coletados['som'] = false;
     player.coletados['roteador'] = false;
 
-    music = this.add.audio('game-Song', 0.3, true);
-    music.play( '', 0, 0.3, true);
-    music.onLoop.add(this.playMusic, this);
+    if (this.isMusicOn) {
+      music = this.add.audio('game-Song', 0.3, true);
+      music.play( '', 0, 0.3, true);
+      music.onLoop.add(this.playMusic, this);
+    }
 
     if (!this.isMP) {
       this.camera.follow(player);
@@ -284,7 +290,9 @@ BasicGame.Game.prototype = {
     if (!player.coletados[star.key]) {
       player.coletados[star.key] = true;
       star.kill();
-      this.somColeta.play();
+      if (this.isAudioOn) {
+        this.somColeta.play();
+      }
       var img = this.add.sprite(this.distanciaColetados*78, 32, star.key);
       this.distanciaColetados++;
       img.fixedToCamera = true;
