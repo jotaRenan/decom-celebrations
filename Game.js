@@ -256,7 +256,9 @@ BasicGame.Game.prototype = {
 
     //  Here you should destroy anything you no longer need.
     //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
-
+    console.log('jogo terminou');
+    let tempoFinal = this.time.elapsedSecondsSince(this.inicio).toFixed(3);
+    console.log(tempoFinal + ' ');
     //  Then let's go back to the main menu.
     
     this.state.start('MainMenu');
