@@ -26,8 +26,8 @@ BasicGame.MainMenu.prototype = {
 		this.btnAudio = this.game.add.button(730,  100, 'btns', this.toggleAudio, this, 2, 2, 2);
 
 		//this.playButton = this.add.button(400, 600, 'playButton', this.startGame, this, 'buttonOver', 'buttonOut', 'buttonOver');
-		this.playButton = this.add.button(175, 320, 'singleBtn', () => {this.click.play(); this.startGame(false, this.isAudioOn, this.isMusicOn);}, this, 2, 1, 0);
-		this.cfgButton = this.add.button(175, 400, 'multiBtn', () => {this.click.play(); this.startGame(true);}, this, 2, 1, 0);
+		this.playSingleButton = this.add.button(175, 320, 'singleBtn', () => {this.click.play(); this.startGame(false, this.isAudioOn, this.isMusicOn);}, this, 2, 1, 0);
+		this.playMultiButton = this.add.button(175, 400, 'multiBtn', () => {this.click.play(); this.startGame(true, this.isAudioOn, this.isMusicOn);}, this, 2, 1, 0);
 		this.selectCharButton = this.add.button(175, 480, 'cfgButton', this.selectChar, this, 2, 1, 0);
 	},
 

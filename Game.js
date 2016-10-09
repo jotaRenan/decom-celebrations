@@ -27,8 +27,8 @@ BasicGame.Game = function (game) {
     this.layer;
     this.player;
 
-    this.p1facing = 'left';
-    this.p2facing = 'left';
+    this.p1facing = 'idle';
+    this.p2facing = 'idle';
     this.p1jumpTimer = 0;
     this.p2jumpTimer = 0;
     this.cursors;
@@ -85,9 +85,10 @@ BasicGame.Game.prototype = {
     player.body.collideWorldBounds = true;
     player.body.setSize(20, 32, 5, 16);
     player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('turn', [4], 20, true);
+    player.animations.add('idle', [4], 20, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
     player.pontuaçao = 0;
+    player.frame = 4;
 
     listaObjetos = ['cafe', 'computador', 'pinguim', 'som', 'roteador'];
     // -- Organiza itens ja coletados. Necessario adicionar mais.
@@ -115,8 +116,9 @@ BasicGame.Game.prototype = {
       player2.body.collideWorldBounds = true;
       player2.body.setSize(20, 32, 5, 16);
       player2.animations.add('left', [0, 1, 2, 3], 10, true);
-      player2.animations.add('turn', [4], 20, true);
+      player2.animations.add('idle', [4], 20, true);
       player2.animations.add('right', [5, 6, 7, 8], 10, true);
+      player2.frame = 4;
       // Define teclas de comando pro p2
       upButton = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
       downButton = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -218,7 +220,7 @@ BasicGame.Game.prototype = {
           else {
             player.frame = 5;
           }
-
+          player.frame = 4;
           this.facing = 'idle';
         }
       }
@@ -255,7 +257,7 @@ BasicGame.Game.prototype = {
             else {
               player2.frame = 5;
             }
-
+            player2.frame = 4;
             this.p2facing = 'idle';
           }
         }
@@ -293,7 +295,7 @@ BasicGame.Game.prototype = {
       if (this.isAudioOn) {
         this.somColeta.play();
       }
-      var img = this.add.sprite(this.distanciaColetados*78, 32, star.key);
+      var img = this.add.sprite(26 + (this.distanciaColetados*50), 32, star.key);
       this.distanciaColetados++;
       img.fixedToCamera = true;
       if (++player.pontuaçao === 5) {

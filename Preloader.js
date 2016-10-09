@@ -37,7 +37,7 @@ BasicGame.Preloader.prototype = {
 		//	+ lots of other required assets here
 		this.load.tilemap('level1', 'starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.image('tiles-1', 'starstruck/teste.png');
-    this.load.spritesheet('dude', 'starstruck/dude.png', 32, 48);
+    this.load.spritesheet('dude', 'starstruck/char2.png', 32, 48);
     this.load.spritesheet('dudeInv', 'starstruck/char1.png', 32, 48);
     this.load.spritesheet('droid', 'starstruck/droid.png', 32, 32);
     this.load.spritesheet('btns', 'starstruck/controls.png', 25, 25);
