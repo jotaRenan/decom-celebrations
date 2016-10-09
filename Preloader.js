@@ -30,9 +30,9 @@ BasicGame.Preloader.prototype = {
 		this.load.atlas('multiBtn', 'starstruck/btn_multi.png', 'starstruck/btn_single.json');
 		this.load.atlas('cfgButton', 'starstruck/btn_cfg.png', 'starstruck/btn_single.json');
 		this.load.audio('coletou', ['audio/coletou.wav']);
-    this.load.audio('menuSong', 'audio/menu.wav');
+    this.load.audio('menuSong', 'audio/menu.mp3');
     this.load.audio('btn-click', 'audio/btn_click.mp3');
-    this.load.audio('game-Song', 'audio/gameSong.wav');
+    this.load.audio('game-Song', 'audio/gameSong.mp3');
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
 		//	+ lots of other required assets here
 		this.load.tilemap('level1', 'starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
