@@ -42,7 +42,6 @@ BasicGame.Game = function (game) {
     this.medianY;
     this.worldScale = 1;
     this.textoTempo;
-    this.listaObjetos;
     this.distanciaColetados;
     this.somColeta;
     this.music = null;
@@ -88,15 +87,8 @@ BasicGame.Game.prototype = {
     player.pontuaçao = 0;
     player.frame = 4;
 
-    listaObjetos = ['cafe', 'computador', 'pinguim', 'som', 'roteador'];
     // -- Organiza itens ja coletados. Necessario adicionar mais.
-    player.coletados = {};
-    player.coletados['starBig'] = false;
-    player.coletados['cafe'] = false;
-    player.coletados['computador'] = false;
-    player.coletados['pinguim'] = false;
-    player.coletados['som'] = false;
-    player.coletados['roteador'] = false;
+    player.coletados = [];
 
     music = this.add.audio('game-Song', 0.3, true);
     if (this.isMusicOn) {
@@ -124,13 +116,7 @@ BasicGame.Game.prototype = {
       rightButton = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
 
       player2.pontuaçao = 0;
-      player2.coletados = {};
-      player2.coletados['starBig'] = false;
-      player.coletados['cafe'] = false;
-      player.coletados['computador'] = false;
-      player.coletados['pinguim'] = false;
-      player.coletados['som'] = false;
-      player.coletados['roteador'] = false;
+      player2.coletados = [];
     }
     this.camera.follow(player);
 
@@ -146,9 +132,10 @@ BasicGame.Game.prototype = {
     var f=0;
     for (var i = 0; i < 12; i++, f++) {
       //  Create a star inside of the 'stars' group
-      if(f==5)
+      if(f==9)
         f=0;
-      var star = stars.create( i * 70, 0, listaObjetos[f]);
+      var star = stars.create( i * 70, 0, 'items', f);
+      star.data = {item: f};
       //  Let gravity do its thing
       star.body.gravity.y = 300;
       star.body.collideWorldBounds = true;
@@ -290,13 +277,14 @@ BasicGame.Game.prototype = {
   },
 
   collectStar: function(player, star) {
-    if (!player.coletados[star.key]) {
-      player.coletados[star.key] = true;
+    let indexItem = star.data['item'];
+    if (player.coletados.indexOf(indexItem) === -1) {
+      player.coletados.push(indexItem);
       star.kill();
       if (this.isAudioOn) {
         this.somColeta.play();
       }
-      var img = this.add.sprite(26 + (this.distanciaColetados*50), 32, star.key);
+      var img = this.add.sprite(26 + (this.distanciaColetados*50), 32, star.key, indexItem);
       this.distanciaColetados++;
       img.fixedToCamera = true;
       if (++player.pontuaçao === 5) {

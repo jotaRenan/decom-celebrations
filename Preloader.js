@@ -42,9 +42,8 @@ BasicGame.Preloader.prototype = {
     this.load.image('tiles-1', 'starstruck/teste.png');
     this.load.spritesheet('dude', 'starstruck/char2.png', 32, 48);
     this.load.spritesheet('dudeInv', 'starstruck/char1.png', 32, 48);
-    this.load.spritesheet('droid', 'starstruck/droid.png', 32, 32);
     this.load.spritesheet('btns', 'starstruck/controls.png', 25, 25);
-    this.load.image('starSmall', 'starstruck/star.png');
+    this.load.spritesheet('items', 'starstruck/items.png', 32, 32);
     this.load.image('starBig', 'starstruck/star2.png');
     this.load.image('background', 'starstruck/26.jpg');
     this.load.image('cafe', 'starstruck/coffe.png');
