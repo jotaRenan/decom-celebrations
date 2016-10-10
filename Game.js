@@ -98,8 +98,8 @@ BasicGame.Game.prototype = {
     player.coletados['som'] = false;
     player.coletados['roteador'] = false;
 
+    music = this.add.audio('game-Song', 0.3, true);
     if (this.isMusicOn) {
-      music = this.add.audio('game-Song', 0.3, true);
       music.play( '', 0, 0.3, true);
       music.onLoop.add(this.playMusic, this);
     }
@@ -281,7 +281,7 @@ BasicGame.Game.prototype = {
     }
     //  Then let's go back to the main menu.
     
-    this.state.start('endState', true, false, tempoFinal);
+    this.state.start('endState', true, false, tempoFinal, this.isAudioOn, this.isMusicOn);
 
   },
 

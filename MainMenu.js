@@ -3,8 +3,8 @@ BasicGame.MainMenu = function (game) {
 	this.music = null;
 	this.playButton = null;
 	this.selectCharButton = null;
-	this.isAudioOn = true;
-	this.isMusicOn = true;
+	this.isAudioOn;
+	this.isMusicOn;
 };
 
 BasicGame.MainMenu.prototype = {
@@ -22,11 +22,16 @@ BasicGame.MainMenu.prototype = {
 
 		//this.btnMusica = this.add.button();
 		this.btnMusica = this.game.add.button(700,  100, 'btns', this.toggleSong, this, 0, 0, 0);
+		if (!this.isMusicOn) {
+			this.btnMusica.tint = 0xff0000;
+		}
 		this.btnAudio = this.game.add.button(730,  100, 'btns', this.toggleAudio, this, 2, 2, 2);
-
+		if (!this.isAudioOn) {
+			this.btnAudio.tint = 0xff0000;
+		}
 		//this.playButton = this.add.button(400, 600, 'playButton', this.startGame, this, 'buttonOver', 'buttonOut', 'buttonOver');
-		this.playSingleButton = this.add.button(175, 320, 'singleBtn', () => {this.click.play(); this.startGame(false, this.isAudioOn, this.isMusicOn);}, this, 2, 1, 0);
-		this.playMultiButton = this.add.button(175, 400, 'multiBtn', () => {this.click.play(); this.startGame(true, this.isAudioOn, this.isMusicOn);}, this, 2, 1, 0);
+		this.playSingleButton = this.add.button(175, 320, 'singleBtn', () => {this.startGame(false);}, this, 2, 1, 0);
+		this.playMultiButton = this.add.button(175, 400, 'multiBtn', () => {this.startGame(true);}, this, 2, 1, 0);
 		this.selectCharButton = this.add.button(175, 480, 'cfgButton', this.selectChar, this, 2, 1, 0);
 	},
 
@@ -37,28 +42,43 @@ BasicGame.MainMenu.prototype = {
 	},
 
 	toggleSong: function() {
-		
-		this.music.isPlaying ? this.music.stop() : this.music.play();
-		this.isMusicOn = !this.isMusicOn;
-		this.btnMusica.frame = 1;
+		if (!this.music.isPlaying) {
+			this.music.play('', 0.4);
+			this.btnMusica.tint = 0xffffff;
+			this.isMusicOn = true;
+		}
+		else {
+			this.music.stop();
+			this.btnMusica.tint = 0xff0000;
+			this.isMusicOn = false;
+		}
 	},
 
 	toggleAudio: function() {
-		this.isAudioOn = !this.isAudioOn;
-		this.btnAudio.frame = 3;
+		if (this.isAudioOn) {
+			this.isAudioOn = false;
+			this.btnAudio.tint = 0xff0000;
+			
+		}
+		else {
+			this.isAudioOn = true;
+			this.btnAudio.tint = 0xffffff;
+		}
 	},
 
 	start: function() {
 		//this.music.fadeIn(50, true);
-		this.music.play( '', 0, 0.4, true);
-		this.music.onLoop.add(this.playMusic, this);
+		if (this.isMusicOn) {
+			this.music.play( '', 0, 0.4, true);
+			this.music.onLoop.add(this.playMusic, this);
+		}
 	},
 
 	playMusic: function() {
 		this.music.play('', 0, 0.4, true);
 	},
 
-	startGame: function (pointer, isAudioOn, isMusicOn) {
+	startGame: function (pointer) {
 
 		//	Ok, the Play Button has been clicked or touched, so let's stop the music (otherwise it'll carry on playing)
 		if (this.isAudioOn) {
@@ -69,10 +89,14 @@ BasicGame.MainMenu.prototype = {
 		}
 
 		//	And start the actual game
-		this.state.start('Game', true, false, pointer, isAudioOn, isMusicOn);
+		this.state.start('Game', true, false, pointer, this.isAudioOn, this.isMusicOn);
 
 	},
 
+	init: function(isAudioOn = true, isMusicOn = true) {
+		this.isAudioOn = isAudioOn;
+		this.isMusicOn = isMusicOn;
+	},
 
 	selectChar: function (pointer) {
 		this.state.start('SelectChar');

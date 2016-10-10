@@ -3,25 +3,28 @@ BasicGame.EndState = function (game) {
   this.music = null;
   this.playButton = null;
   this.selectCharButton = null;
-  this.isAudioOn = true;
-  this.isMusicOn = true;
+  this.isAudioOn = null;
+  this.isMusicOn = null;
   this.score = null;
   this.btnRank = null;
   this.btnMenu = null;
   this.textoScore = null;
   this.endOfGameMsg = null;
+  this.click = null;
 };
 
 BasicGame.EndState.prototype = {
 
-  init: function(score) {
+  init: function(score, isAudioOn, isMusicOn) {
     this.score = score;
+    this.isAudioOn = isAudioOn;
+    this.isMusicOn = isMusicOn;
   },
 
   preload: function() {
     this.background = this.add.sprite(0, 0, 'endBG');
     this.music = this.add.audio('winSong');
-    
+    this.click = this.add.audio('btn-click');
   },
 
   create: function() {
@@ -87,6 +90,9 @@ BasicGame.EndState.prototype = {
   exibirRank: function() {
     this.textoScore.destroy();
     this.endOfGameMsg.destroy();
+    if (this.isAudioOn) {
+      this.click.play();
+    }
     let pontuacoes = JSON.parse(localStorage.getItem('score')),
         tamanho = pontuacoes.length,
         textos = Array(tamanho);
@@ -106,7 +112,10 @@ BasicGame.EndState.prototype = {
 
   irMenu: function() {
     this.music.stop();
-    this.state.start('MainMenu');
+    if (this.isAudioOn) {
+      this.click.play();
+    }
+    this.state.start('MainMenu', true, false, this.isAudioOn, this.isMusicOn);
   },
 
   update: function() {}
