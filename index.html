@@ -2,7 +2,7 @@
 <html>
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Audiowide|Orbitron" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 	<meta charset="UTF-8" />
@@ -41,7 +41,15 @@
 			padding: 0;
 			margin: 0;
 			font-family: orbitron;
-			background-color: rgba(0, 184, 230, 0.7);
+			background-color: rgb(55, 155, 255);
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		ul, li {
+			list-style: none;
 		}
 
 		.container {
@@ -54,50 +62,60 @@
 		}
 		.expositor {
 			margin: 0;
-			padding: 3%;
-			background-color: lightblue;
+			padding: 0%;
+			background-color: rgb(55, 155, 255);
 		}
 
 		.historia {
 			margin-top: 0;
 			margin: auto;
 			max-width: 800px;
-			border-top-right-radius: 12px;
-			border-top-left-radius:  12px;
-			border: 10px black solid;
-			background-color: lightgrey;
+			border: 10px rgb(0, 89, 179) solid;
+			border-top: none;
+			background-color: white;
 			padding: 1em;
+			font-family: audiowide;
 		}
 		.historia p {
 			padding: 1%;
 			margin-bottom: 0;
 			margin-top: 0;
-			font-family: roboto;
 			font-size: 15pt;
 		}
 
 		.principal {
-			background-color: rgba(0, 184, 230, 0.7);
+			background-color: rgb(55, 155, 255);
 			height: 92vh;
 			margin: 0;
 		}
 
 		.header {
-			background-color: rgba(0, 184, 130, 0.7);
-			font-size: 16pt;
+			background-color: rgb(204, 204, 179);
+			font-size: 40pt;
 			margin: 0;
 			padding: 0;
-			height: 8vh;
+			height: 30vh;
+			height: 100%;
+			font-family: orbitron;
+
 		}
 		.header h1 {
 			margin: 0;
-			padding-top: 0.5em;
-			padding-left: 10em;
-			
+			padding-top: 0;
+			padding-left: 0em;
+			text-align: center;
+			padding-bottom: 0;
+			color: black;
 		}
 
 		#gameContainer {
-			border: 1px solid white;
+			border: 0px solid blue;
+		}
+
+		#qs {
+			width: 100%;
+			text-align: center;
+			background-color: rgb(204, 204, 179);
 		}
 
 	</style>
@@ -143,6 +161,11 @@
 				  data-show-faces="true">
 				</div>
 				<div id="gameContainer"></div>
+			</div>
+			<div id="qs"> 
+				<ul> 
+					<li> <a href="quemsomos.html"> Quem somos </a> </li> 
+				</ul>
 			</div>
 		</section>
 	</div>
