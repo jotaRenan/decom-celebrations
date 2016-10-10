@@ -9,6 +9,7 @@ BasicGame.EndState = function (game) {
   this.btnRank = null;
   this.btnMenu = null;
   this.textoScore = null;
+  this.endOfGameMsg = null;
 };
 
 BasicGame.EndState.prototype = {
@@ -28,7 +29,19 @@ BasicGame.EndState.prototype = {
       this.music.play('', 0, 0.4);
     }
 
-    this.textoScore = this.game.add.text(250, 200);
+    this.endOfGameMsg = this.game.add.text(210, 130);
+    this.endOfGameMsg.text = 'Fim de Jogo! \nSeu tempo foi:';
+    this.endOfGameMsg.align = 'center';
+    this.endOfGameMsg.lineSpacing = -10;
+    this.endOfGameMsg.font = 'Arial Black';
+    this.endOfGameMsg.fontSize = 45;
+    this.endOfGameMsg.fontWeight = 'bold';
+    this.endOfGameMsg.stroke = '#000000';
+    this.endOfGameMsg.strokeThickness = 4;
+    this.endOfGameMsg.fill = 'tomato';
+    this.endOfGameMsg.fixedToCamera = true;
+
+    this.textoScore = this.game.add.text(250, 235);
     this.textoScore.font = 'Arial Black';
     this.textoScore.fontSize = 80;
     this.textoScore.fontWeight = 'bold';
@@ -38,8 +51,8 @@ BasicGame.EndState.prototype = {
     this.textoScore.fixedToCamera = true;
     this.textoScore.text = `${this.score}s`;
 
-    this.btnRank =  this.add.button(200, 400, 'rankButton', this.exibirRank , this, 2, 1, 0);
-    this.btnMenu =  this.add.button(400, 400, 'menuButton', this.irMenu, this, 2, 1, 0);
+    this.btnRank =  this.add.button(240, 400, 'rankButton', this.exibirRank , this, 2, 1, 0);
+    this.btnMenu =  this.add.button(420, 400, 'menuButton', this.irMenu, this, 2, 1, 0);
 
     if (localStorage.getItem('score') === null ) {
       scores = [];
@@ -73,6 +86,7 @@ BasicGame.EndState.prototype = {
 
   exibirRank: function() {
     this.textoScore.destroy();
+    this.endOfGameMsg.destroy();
     let pontuacoes = JSON.parse(localStorage.getItem('score')),
         tamanho = pontuacoes.length,
         textos = Array(tamanho);
