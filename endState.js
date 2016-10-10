@@ -60,7 +60,7 @@ BasicGame.EndState.prototype = {
         localStorage.setItem('score', JSON.stringify(pontuacoes));
       }
       else {
-        if (tamanho < 5) {
+        if (tamanho < 4) {
           pontuacoes.push(this.score);
           pontuacoes.sort();
           localStorage.setItem('score', JSON.stringify(pontuacoes));
