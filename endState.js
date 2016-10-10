@@ -49,7 +49,8 @@ BasicGame.EndState.prototype = {
     else {
       let pontuacoes = JSON.parse(localStorage.getItem('score')),
           tamanho = pontuacoes.length;
-      if (this.score < pontuacoes[tamanho-1]) {
+      console.log(tamanho);
+      if (this.score < parseFloat(pontuacoes[tamanho-1])) {
         if (tamanho < 5) {
           pontuacoes.push(this.score);
         }
