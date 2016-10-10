@@ -49,7 +49,6 @@ BasicGame.EndState.prototype = {
     else {
       let pontuacoes = JSON.parse(localStorage.getItem('score')),
           tamanho = pontuacoes.length;
-      console.log(tamanho);
       if (this.score < parseFloat(pontuacoes[tamanho-1])) {
         if (tamanho < 5) {
           pontuacoes.push(this.score);
@@ -73,7 +72,6 @@ BasicGame.EndState.prototype = {
   },
 
   exibirRank: function() {
-    //Precisa destruir isso, so q n funfa
     this.textoScore.destroy();
     let pontuacoes = JSON.parse(localStorage.getItem('score')),
         tamanho = pontuacoes.length,
