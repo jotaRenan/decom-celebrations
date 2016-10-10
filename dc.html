@@ -14,26 +14,28 @@
 	<script src="MainMenu.js"></script>
 	<script src="Game.js"></script>
 	<script src="SelectChar.js"></script>
+	<script src="endState.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="dc.css">
 	
 </head>
 <body>
 	<div class="main">
-		<div id="top"> <span class="negro">DECOM</span>llector </div>
-		
+		<div id="top"> 
+			<span class="negro">DECOM</span>llector 
+		</div>
 		<div id="corpo">
 			<div id="mural"> 
-				<div> <p> Dias antes do DECOM Celebrations, evento de aniversário dos 30 anos do
-			Departamente de Computação do CEFET-MG, os famigerados <span class="negro">
-			catioros do Campus 2</span> entraram no prédio do departamento e fizeram uma algazarra!
-			Ajude o pessoal recolhendo todos os objetos que os cachorros espalharam pelo Campus 2!
-			Tempo é primordial, e o aluno que recolher tudo mais rápido estará livre do TCC.</p> </div>    
+				<p> Dias antes do DECOM Celebrations, evento de aniversário dos 30 anos do
+				Departamente de Computação do CEFET-MG, os famigerados <span class="negro">
+				catioros do Campus 2</span> entraram no prédio do departamento e fizeram uma algazarra!
+				Ajude o pessoal recolhendo todos os objetos que os cachorros espalharam pelo Campus 2!
+				Tempo é primordial, e o aluno que recolher tudo mais rápido estará livre do TCC.
 				<div id="gameContainer"></div>
+				</p> 
 			</div>
-			
 		</div>
-
+	</div>
 	<script type="text/javascript">
 		
 		window.onload = function() {
@@ -50,6 +52,7 @@
 			game.state.add('MainMenu', BasicGame.MainMenu);
 			game.state.add('Game', BasicGame.Game);
 			game.state.add('SelectChar', BasicGame.SelectChar);
+			game.state.add('endState', BasicGame.EndState);
 
 			//	Now start the Boot state.
 			game.state.start('Boot');

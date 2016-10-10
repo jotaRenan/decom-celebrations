@@ -25,7 +25,7 @@ html, body {
 }
 
 #corpo {
-	height: 80%;
+	/*height: 80%;*/
 	width: 100%;
 	position: absolute;
 	background-color: rgba(0, 100, 230, 0.7);
@@ -34,9 +34,8 @@ html, body {
 }
 
 #mural {
-	width: 65%;
+	max-width: 65%;
 	margin: auto;
-	height: 40%;
 	background-color: rgba(0, 100, 100, 0.6);
 	padding-top: 20px;
 	padding-left: 30px;
@@ -51,4 +50,10 @@ html, body {
 
 .negro {
 	font-weight: bold;
+}
+
+#gameContainer {
+	display: inline-block;
+	width: 800px;
+	height: 600px;
 }
