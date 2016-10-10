@@ -277,13 +277,13 @@ BasicGame.Game.prototype = {
     console.log('jogo terminou');
     let tempoFinal = this.time.elapsedSecondsSince(this.inicio).toFixed(3);
     //console.log(tempoFinal);
-    var nome = prompt("Insira aqui o seu nome:", "Adalbinho");
+    //var nome = prompt("Insira aqui o seu nome:", "Adalbinho");
     //console.log(nome);
     console.log(tempoFinal + ' ');
     music.stop();
     //  Then let's go back to the main menu.
     
-    this.state.start('endState');
+    this.state.start('endState', true, false, tempoFinal);
 
   },
 
@@ -308,27 +308,30 @@ BasicGame.Game.prototype = {
   },
 
   atualizaRanking: function(tempo, nome) {
-    var token = "b01d31a1-8b9f-4f8f-814e-54dcb8c7aff8";
-    let db = require('orquestrate')(token);
-    db.put('tempos',  {
-      'nome' : nome,
-      'tempo' : tempo
-    })
-    .then(function (res) {
-      console.log(res); // prints response
-    })
-    .fail(function (err) {
-      console.log(err); // prints error
-    });
+    // var token = "b01d31a1-8b9f-4f8f-814e-54dcb8c7aff8";
+    // let db = require('orquestrate')(token);
+    // db.put('tempos',  {
+    //   'nome' : nome,
+    //   'tempo' : tempo
+    // })
+    // .then(function (res) {
+    //   console.log(res); // prints response
+    // })
+    // .fail(function (err) {
+    //   console.log(err); // prints error
+    // });
 
-    db.get('tempos', 'tempo', 'nome')
-    .then(function (res) {
-      console.log(res.body); // prints response body
-      console.log(res.body.name); // prints 'Bruce Wayne'
-    })
-    .fail(function (err) {
-      console.log(err); // prints error
-    });
+    // db.get('tempos', 'tempo', 'nome')
+    // .then(function (res) {
+    //   console.log(res.body); // prints response body
+    //   console.log(res.body.name); // prints 'Bruce Wayne'
+    // })
+    // .fail(function (err) {
+    //   console.log(err); // prints error
+    // });
+
+
+
   }
 
 
