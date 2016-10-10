@@ -3,6 +3,11 @@
 	width: 100%;
 }
 
+html, body {
+	margin: 0;
+	top: 0;
+}
+
 .main {
 	height: 100%;
 	width: 100%;
@@ -31,14 +36,19 @@
 #mural {
 	width: 65%;
 	margin: auto;
-	height: 85%;
+	height: 40%;
 	background-color: rgba(0, 100, 100, 0.6);
 	padding-top: 20px;
 	padding-left: 30px;
 	padding-right: 30px;
+	margin-bottom: 0px;
 	font-family: audiowide;
 	font-size: 20px;
 	border: 10px solid black;
 	border-radius: 10px;
 	text-align: center;
+}
+
+.negro {
+	font-weight: bold;
 }

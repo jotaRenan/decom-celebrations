@@ -1,30 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Audiowide|Orbitron" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="dc.css">
 
 	<title> DECOM Celebrations </title>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Audiowide|Orbitron" rel="stylesheet">
+	
+	<script src="phaser.min.js"></script>
+	<script src="Boot.js"></script>
+	<!-- <script src="Boot6.js"></script> -->
+	<script src="Preloader.js"></script>
+	<script src="MainMenu.js"></script>
+	<script src="Game.js"></script>
+	<script src="SelectChar.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="dc.css">
+	
 </head>
 <body>
 	<div class="main">
-		<div id="top"> DECOM Celebrations </div>
+		<div id="top"> <span class="negro">DECOM</span>llector </div>
 		
 		<div id="corpo">
-			<div id="mural"> No ano de 2016, o Departamento de Computação do CEFET-MG comemora três datas marcantes, que são o aniversário de 30 anos do curso técnico de Informática, 10 anos da criação do departamento e 10 anos do curso superior de Engenharia de Computação. Diante desse fato, resolvemos desenvolver um jogo que se passa dentro do Departamento de Computação, onde um ou dois personagens o percorrem arrumando a bagunça feita pelo cachorros do Campus 2, sendo que o jogador que terminar o conjunto de tarefas em menor tempo é o vencedor.  </div>
+			<div id="mural"> 
+				<div> <p> Dias antes do DECOM Celebrations, evento de aniversário dos 30 anos do
+			Departamente de Computação do CEFET-MG, os famigerados <span class="negro">
+			catioros do Campus 2</span> entraram no prédio do departamento e fizeram uma algazarra!
+			Ajude o pessoal recolhendo todos os objetos que os cachorros espalharam pelo Campus 2!
+			Tempo é primordial, e o aluno que recolher tudo mais rápido estará livre do TCC.</p> </div>    
+				<div id="gameContainer"></div>
+			</div>
+			
 		</div>
+
+	<script type="text/javascript">
 		
-		<!--<footer> 
-        <ul class="box">
-          <a href="quemsomos.html"> <li>Quem somos</li> </a>
-        </ul>
-		</footer> -->
+		window.onload = function() {
+
+			//	Create your Phaser game and inject it into the gameContainer div.
+			//	We did it in a window.onload event, but you can do it anywhere (requireJS load, anonymous function, jQuery dom ready, - whatever floats your boat)
+			var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameContainer');
+
+			//	Add the States your game has.
+			//	You don't have to do this in the html, it could be done in your Boot state too, but for simplicity I'll keep it here.
+			// game.state.add('Boot6', BasicGame.Boot);
+			game.state.add('Boot', BasicGame.Boot);
+			game.state.add('Preloader', BasicGame.Preloader);
+			game.state.add('MainMenu', BasicGame.MainMenu);
+			game.state.add('Game', BasicGame.Game);
+			game.state.add('SelectChar', BasicGame.SelectChar);
+
+			//	Now start the Boot state.
+			game.state.start('Boot');
+
+		};
+
+	</script>
 		
-	<!--</div>
-	<div id="foot"> 
-		<ul> <li> Quem somos </li> </ul>
-	</div> -->
 </body>
 </html>
