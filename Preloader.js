@@ -30,7 +30,7 @@ BasicGame.Preloader.prototype = {
 		this.load.atlas('multiBtn', 'starstruck/btn_multi.png', 'starstruck/btn_single.json');
 		this.load.atlas('cfgButton', 'starstruck/btn_cfg.png', 'starstruck/btn_single.json');
     this.load.atlas('rankButton', 'starstruck/rank.png', 'starstruck/btn_mini.json');
-    this.load.atlas('menuButton', 'starstruck/menu.png', 'starstruck/btn_mini.json');
+    this.load.atlas('menuButton', 'starstruck/MENU.png', 'starstruck/btn_mini.json');
 		this.load.audio('coletou', ['audio/coletou.wav']);
     this.load.audio('menuSong', 'audio/menu.mp3');
     this.load.audio('btn-click', 'audio/btn_click.mp3');
