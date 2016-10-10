@@ -1,16 +1,21 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
 
 .container {
   max-width: 2000px;
   margin: 0 auto;
-  background-color: rgba(0, 100, 230, 0.7);
+  background-color: rgb(55, 155, 255);
 }
 
 .topoqs {
-  height: 30%;
+  height: 30vh;
+  height: 100%;
   width: 100%;
-  background-color: rgba(0, 184, 130, 0.7);
+  background-color: rgb(204, 204, 179);
   font-family: orbitron;
-  font-size: 90px;
+  font-size: 40pt;
   text-align: center;
 }
 
@@ -34,7 +39,7 @@
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
-  background-color: rgba(0, 100, 230, 0.7);
+  background-color: rgb(55, 155, 255);
 }
 
 .desc {
