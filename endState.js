@@ -56,6 +56,11 @@ BasicGame.EndState.prototype = {
 
     this.btnRank =  this.add.button(240, 400, 'rankButton', this.exibirRank , this, 2, 1, 0);
     this.btnMenu =  this.add.button(420, 400, 'menuButton', this.irMenu, this, 2, 1, 0);
+    console.log(localStorage.getItem('data'));
+    if (localStorage.getItem('data') === null) {
+      localStorage.setItem('data', JSON.stringify(new Date()));
+      localStorage.removeItem('score');
+    }
 
     if (localStorage.getItem('score') === null ) {
       scores = [];
