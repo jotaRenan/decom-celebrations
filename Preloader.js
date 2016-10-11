@@ -39,17 +39,19 @@ BasicGame.Preloader.prototype = {
     //this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
     //  + lots of other required assets here
     this.load.tilemap('level1', 'starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
-    this.load.image('tiles-1', 'starstruck/teste.png');
     this.load.spritesheet('dude', 'starstruck/char2.png', 32, 48);
     this.load.spritesheet('dudeInv', 'starstruck/char1.png', 32, 48);
     this.load.spritesheet('btns', 'starstruck/controls.png', 25, 25);
     this.load.spritesheet('items', 'starstruck/items.png', 32, 32);
+    this.load.image('hud', 'starstruck/hud.png');
+    this.load.image('tiles-1', 'starstruck/teste.png');
     this.load.image('starBig', 'starstruck/star2.png');
     this.load.image('background', 'starstruck/26.jpg');
     this.load.image('cafe', 'starstruck/coffe.png');
     this.load.image('computador', 'starstruck/computer.png');
     this.load.image('pinguim', 'starstruck/pinguim.png');
     this.load.image('som', 'starstruck/som.png');
+    this.load.image('pula', 'starstruck/pula-pula.png');
     this.load.image('roteador', 'starstruck/router.png');
     this.load.image('pgBar1', 'starstruck/progress_bar.png');
     this.load.image('endBG', 'starstruck/end-bg.png');

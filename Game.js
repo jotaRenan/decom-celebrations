@@ -33,7 +33,7 @@ BasicGame.Game = function (game) {
     this.p2jumpTimer = 0;
     this.cursors;
     this.bg;
-    this.stars;
+    this.itens;
     this.score = 0;
     //Minhas var
     this.isMP;
@@ -42,11 +42,13 @@ BasicGame.Game = function (game) {
     this.medianY;
     this.worldScale = 1;
     this.textoTempo;
-    this.distanciaColetados;
     this.somColeta;
     this.music = null;
     this.isAudioOn;
     this.isMusicOn;
+    this.medianX = null;
+    this.medianY = null;
+    this.boost = null;
   };
 
 BasicGame.Game.prototype = {
@@ -59,7 +61,6 @@ BasicGame.Game.prototype = {
   },
 
   create: function () {
-    this.distanciaColetados = 1;
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.stage.backgroundColor = '#000000';
 
@@ -71,12 +72,13 @@ BasicGame.Game.prototype = {
     map.addTilesetImage('tiles-1');
     map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
     layer = map.createLayer('Tile Layer 1');
+
     //  Un-comment this on to see the collision tiles
     //layer.debug = true;
     layer.resizeWorld();
-    this.physics.arcade.gravity.y = 600;
+    this.physics.arcade.gravity.y = 450;
 
-    player = this.add.sprite(32, 32, 'dude');
+    player = this.add.sprite(32, 130, 'dude');
     this.physics.enable(player, Phaser.Physics.ARCADE);
     player.body.bounce.y = 0.2;
     player.body.collideWorldBounds = true;
@@ -87,7 +89,7 @@ BasicGame.Game.prototype = {
     player.pontuaçao = 0;
     player.frame = 4;
 
-    // -- Organiza itens ja coletados. Necessario adicionar mais.
+    // -- Organiza itens ja coletados
     player.coletados = [];
 
     music = this.add.audio('game-Song', 0.3, true);
@@ -117,30 +119,26 @@ BasicGame.Game.prototype = {
 
       player2.pontuaçao = 0;
       player2.coletados = [];
+
     }
-    this.camera.follow(player);
 
     cursors = this.input.keyboard.createCursorKeys();
     
-    //  Finally some stars to collect
-    stars = this.add.group();
-
+    //  Finally some itens to collect
+    itens = this.add.group();
     //  We will enable physics for any star that is created in this group
-    stars.enableBody = true;
+    itens.enableBody = true;
 
-    //  Here we'll create 12 of them evenly spaced apart
+    //  Cria itens para coletar
     var f=0;
     for (var i = 0; i < 12; i++, f++) {
-      //  Create a star inside of the 'stars' group
-      if(f==9)
+      if(f==10)
         f=0;
-      var star = stars.create( i * 70, 0, 'items', f);
-      star.data = {item: f};
-      //  Let gravity do its thing
-      star.body.gravity.y = 300;
-      star.body.collideWorldBounds = true;
-      //  This just gives each star a slightly random bounce value
-      star.body.bounce.y = 0.8 + Math.random() * 0.2;
+      var _item = itens.create( i * 70, 0, 'items', f);
+      _item.data = {item: f};
+      _item.body.gravity.y = 300;
+      _item.body.collideWorldBounds = true;
+      _item.body.bounce.y = 0.8 + Math.random() * 0.2;
     
     } 
 
@@ -153,32 +151,62 @@ BasicGame.Game.prototype = {
     textoTempo.strokeThickness = 6;
     textoTempo.fill = '#43d637';
     textoTempo.fixedToCamera = true;
-
-    var barraProgresso = this.add.sprite(10, 26, 'pgBar1');
-    barraProgresso.fixedToCamera = true;
+    //  HUD pra mostrar itens ja coletados
+    var hud = this.add.sprite(0, 0, 'hud');
+    hud.fixedToCamera = true;
 
     this.somColeta = this.game.add.audio('coletou');
+
+
+    boost = this.add.group();
+    boost.enableBody = true;
+    this.boost = boost.create(665, 265,'pula');
+    //gamby
+    this.boost.body.gravity = 0;
 
     // variavel inicio ajuda a contar tempo
     this.inicio = this.time.now;
     },
 
     update: function () {
+      // Movimento de camera para multiplayer
+      if (this.isMP) {
+        var posicaoP1X = player.body.x,
+            posicaoP1Y = player.body.y,
+            posicaoP2X = player2.body.x,
+            posicaoP2Y = player2.body.y,
+            distanciaX = (posicaoP1X > posicaoP2X ? (posicaoP1X - posicaoP2X) : (posicaoP2X - posicaoP1X) ),
+            distanciaY = (posicaoP1Y > posicaoP2Y ? (posicaoP1Y - posicaoP2Y) : (posicaoP2Y - posicaoP1Y) );
+
+        this.medianX = (player.body.x + player2.body.x) / 2;
+        this.medianY = (player.body.y + player2.body.y) / 2;
+        this.game.camera.focusOnXY(this.medianX, this.medianY);
+
+        this.physics.arcade.overlap(player2, this.boost, this.boostEstrela, null, this);
+
+        if (distanciaX >= 790) {
+          player.body.velocity.x = 0;
+          player2.body.velocity.x = 0;
+        }
+        if (distanciaY >= 590) {
+          player.body.velocity.y = 0;
+          player2.body.velocity.y = 0;
+        } 
+      }
+      this.physics.arcade.overlap(player, this.boost, this.boostEstrela, null, this);
 
       textoTempo.text = this.time.elapsedSecondsSince(this.inicio).toFixed(3) ;
-      this.physics.arcade.collide(stars, layer);
-      //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
+      this.physics.arcade.collide(itens, layer);
       this.physics.arcade.collide(player, layer);
       if (this.isMP) {
         this.physics.arcade.collide(player2, layer);
         player2.body.velocity.x = 0;
-        this.physics.arcade.overlap(player2, stars, this.collectStar, null, this);
+        this.physics.arcade.overlap(player2, itens, this.collectStar, null, this);
       }
-      //this.physics.arcade.collide(player, stars);
-      
+      //Limita movimento ao controle do usuario
       player.body.velocity.x = 0;
 
-      this.physics.arcade.overlap(player, stars, this.collectStar, null, this);
+      this.physics.arcade.overlap(player, itens, this.collectStar, null, this);
       if (cursors.left.isDown) {
         player.body.velocity.x = -150;
 
@@ -260,14 +288,11 @@ BasicGame.Game.prototype = {
     //  Here you should destroy anything you no longer need.
     //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
     let tempoFinal = this.time.elapsedSecondsSince(this.inicio).toFixed(3);
-    //console.log(tempoFinal);
-    //var nome = prompt("Insira aqui o seu nome:", "Adalbinho");
     
     if (this.isMusicOn) {
       music.stop();
     }
-    //  Then let's go back to the main menu.
-    
+    //  Then let's go back to the main menu.    
     this.state.start('endState', true, false, tempoFinal, this.isAudioOn, this.isMusicOn);
 
   },
@@ -284,13 +309,21 @@ BasicGame.Game.prototype = {
       if (this.isAudioOn) {
         this.somColeta.play();
       }
-      var img = this.add.sprite(26 + (this.distanciaColetados*50), 32, star.key, indexItem);
-      this.distanciaColetados++;
+      var topo = indexItem < 5 ? 10 : 48,
+          esquerda = indexItem < 5 ? indexItem : indexItem-5;
+
+      var img = this.add.sprite(6 + (esquerda*32), topo, star.key, indexItem);
+      img.tint = 0x00ff00;
       img.fixedToCamera = true;
-      if (++player.pontuaçao === 5) {
+      if (++player.pontuaçao === 10) {
         this.quitGame();
       }
     }
   },
+
+  boostEstrela: function(player) {
+    player.body.velocity.y -= 160;
+    
+  }
 
 };
