@@ -78,7 +78,7 @@ BasicGame.MainMenu.prototype = {
 		this.music.play('', 0, 0.4, true);
 	},
 
-	startGame: function (pointer) {
+	startGame: function (isMP) {
 
 		//	Ok, the Play Button has been clicked or touched, so let's stop the music (otherwise it'll carry on playing)
 		if (this.isAudioOn) {
@@ -89,7 +89,9 @@ BasicGame.MainMenu.prototype = {
 		}
 
 		//	And start the actual game
-		this.state.start('Game', true, false, pointer, this.isAudioOn, this.isMusicOn);
+		var jogoAIniciar = isMP ? 'GameMP' : 'GameSP';
+		this.state.start( jogoAIniciar, true, false, this.isAudioOn, this.isMusicOn);
+	
 
 	},
 
