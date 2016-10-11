@@ -131,12 +131,26 @@ BasicGame.GameMP.prototype = {
     //  We will enable physics for any star that is created in this group
     itens.enableBody = true;
 
+    //Coordernadas dos itens
+    let C = Coordenada;
+    coordenadas = [ new C( 114, 890 ),
+                    new C( 325, 970 ),
+                    new C( 780, 790 ),
+                    new C( 863, 555 ),
+                    new C( 445, 378 ),
+                    new C( 567, 330 ),
+                    new C( 350, 176 ),
+                    new C( 940, 131 ),
+                    new C( 613, 800),
+                    new C(  13, 400),
+                    new C( 922, 800)
+                  ] ;
     //  Cria itens para coletar
     var f=0;
-    for (var i = 0; i < 12; i++, f++) {
+    for (var i = 0; i < 10; i++, f++) {
       if(f==10)
         f=0;
-      var _item = itens.create( i * 70, 0, 'items', f);
+      var _item = itens.create( coordenadas[i].x,  coordenadas[i].y, 'items', f);
       _item.data = {item: f};
       _item.body.gravity.y = 300;
       _item.body.collideWorldBounds = true;
