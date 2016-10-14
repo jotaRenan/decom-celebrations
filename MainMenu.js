@@ -21,18 +21,18 @@ BasicGame.MainMenu.prototype = {
 		this.add.sprite(0, 0, 'titlepage');
 
 		//this.btnMusica = this.add.button();
-		this.btnMusica = this.game.add.button(700,  100, 'btns', this.toggleSong, this, 0, 0, 0);
+		this.btnMusica = this.game.add.button(520,  170, 'btns', this.toggleSong, this, 0, 0, 0);
 		if (!this.isMusicOn) {
 			this.btnMusica.tint = 0xff0000;
 		}
-		this.btnAudio = this.game.add.button(730,  100, 'btns', this.toggleAudio, this, 2, 2, 2);
+		this.btnAudio = this.game.add.button(550,  170, 'btns', this.toggleAudio, this, 2, 2, 2);
 		if (!this.isAudioOn) {
 			this.btnAudio.tint = 0xff0000;
 		}
 		//this.playButton = this.add.button(400, 600, 'playButton', this.startGame, this, 'buttonOver', 'buttonOut', 'buttonOver');
-		this.playSingleButton = this.add.button(175, 320, 'singleBtn', () => {this.startGame(false);}, this, 2, 1, 0);
-		this.playMultiButton = this.add.button(175, 400, 'multiBtn', () => {this.startGame(true);}, this, 2, 1, 0);
-		this.selectCharButton = this.add.button(175, 480, 'cfgButton', this.selectChar, this, 2, 1, 0);
+		this.playSingleButton = this.add.button(175, 350, 'singleBtn', () => {this.startGame(false);}, this, 2, 1, 0);
+		this.playMultiButton = this.add.button(175, 430, 'multiBtn', () => {this.startGame(true);}, this, 2, 1, 0);
+		//this.selectCharButton = this.add.button(175, 480, 'cfgButton', this.selectChar, this, 2, 1, 0);
 	},
 
 	update: function () {

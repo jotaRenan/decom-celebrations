@@ -26,7 +26,7 @@ BasicGame.Preloader.prototype = {
 		//	As this is just a Project Template I've not provided these assets, swap them for your own.
 		this.load.image('titlepage', 'starstruck/bgDecom.png');
 		//this.load.image('playButton', 'starstruck/button_texture_atlas.png');
-		this.load.atlas('singleBtn', 'starstruck/btn_single.png', 'starstruck/btn_single.json');
+		this.load.atlas('singleBtn', 'starstruck/btns_single.png', 'starstruck/btn_single.json');
 		this.load.atlas('multiBtn', 'starstruck/btn_multi.png', 'starstruck/btn_single.json');
 		this.load.atlas('cfgButton', 'starstruck/btn_cfg.png', 'starstruck/btn_single.json');
     this.load.atlas('rankButton', 'starstruck/rank.png', 'starstruck/btn_mini.json');
@@ -41,7 +41,7 @@ BasicGame.Preloader.prototype = {
     this.load.tilemap('level1', 'starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.spritesheet('dude', 'starstruck/char2.png', 32, 48);
     this.load.spritesheet('dudeInv', 'starstruck/char1.png', 32, 48);
-    this.load.spritesheet('btns', 'starstruck/controls.png', 25, 25);
+    this.load.spritesheet('btns', 'starstruck/controles.png', 25, 25);
     this.load.spritesheet('items', 'starstruck/items.png', 32, 32);
     this.load.image('hudSP', 'starstruck/hud_sp.png');
     this.load.image('hudMP', 'starstruck/hud_mp.png');

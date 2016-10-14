@@ -3,7 +3,8 @@
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 
 	<meta charset="UTF-8" />
 	<meta property="og:locale" content="pt_BR">
@@ -75,13 +76,14 @@
 			border-top: none;
 			background-color: white;
 			padding: 1em;
-			font-family: audiowide;
+			font-family: 'Rubik', sans-serif;
 		}
 		.historia p {
 			padding: 1%;
 			margin-bottom: 0;
 			margin-top: 0;
 			font-size: 15pt;
+			color: #25252525;
 		}
 
 		.principal {
@@ -91,13 +93,14 @@
 		}
 
 		.header {
-			background-color: rgb(204, 204, 179);
+			background-color: rgb(255, 175, 62);
 			font-size: 40pt;
 			margin: 0;
 			padding: 0;
-			height: 30vh;
-			height: 100%;
+			/*height: 30vh;*/
+			/*height: 100%;*/
 			font-family: orbitron;
+	    border-bottom: 3px solid rgb(255, 213, 153);
 
 		}
 		.header h1 {
@@ -106,7 +109,7 @@
 			padding-left: 0em;
 			text-align: center;
 			padding-bottom: 0;
-			color: black;
+			color: #252525;
 		}
 
 		#gameContainer {
@@ -117,6 +120,12 @@
 			width: 100%;
 			text-align: center;
 			background-color: rgb(204, 204, 179);
+		}
+
+		.texto {
+			display: flex;
+			text-align: justify;
+			line-height: 180%;
 		}
 
 	</style>
@@ -141,6 +150,15 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
+<script>
+	window.addEventListener("keydown", function(e) {
+	    // space and arrow keys
+	    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+	        e.preventDefault();
+	    }
+	}, false);
+</script>
+
 
 <section class="header">
 	<h1>DECOM-llector</h1>
@@ -150,11 +168,14 @@
 		<section class="expositor">
 			<div class="historia">
 				<h3>O DECOM precisa da sua ajuda!</h3>
-				<p>Dias antes do DECOM Celebrations, evento de aniversário dos 10 anos do
-				Departamento de Computação do CEFET-MG, os famigerados <span class="negr">
-				catioros do Campus 2</span> entraram no prédio do departamento e fizeram uma algazarra!
-				Ajude o pessoal recolhendo todos os objetos que os cachorros espalharam pelo Campus 2!
-				Tempo é primordial, e o aluno que recolher tudo mais rápido estará livre do TCC.</p>
+				<div class="texto">
+					<p>Dias antes do DECOM Celebrations, evento de aniversário dos 10 anos do
+					Departamento de Computação do CEFET-MG, os famigerados <span class="negr">
+					catioros do Campus 2</span> entraram no prédio do departamento e fizeram uma algazarra!
+					Ajude o pessoal recolhendo todos os objetos que os cachorros espalharam pelo Campus 2!
+					Tempo é primordial, e o aluno que recolher tudo mais rápido estará livre do TCC.
+					</p>
+				</div>
 				<div
 				  class="fb-like"
 				  data-share="true"

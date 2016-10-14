@@ -48,6 +48,7 @@ BasicGame.GameMP = function (game) {
     this.medianX = null;
     this.medianY = null;
     this.boost = null;
+    this.btnReload = null;
   };
 
 BasicGame.GameMP.prototype = {
@@ -92,10 +93,10 @@ BasicGame.GameMP.prototype = {
     // -- Organiza itens ja coletados
     player.coletados = [];
 
-    music = this.add.audio('game-Song', 0.3, true);
+    this.music = this.add.audio('game-Song', 0.3, true);
     if (this.isMusicOn) {
-      music.play( '', 0, 0.3, true);
-      music.onLoop.add(this.playMusic, this);
+      this.music.play( '', 0, 0.3, true);
+      this.music.onLoop.add(this.playMusic, this);
     }
 
 
@@ -174,10 +175,21 @@ BasicGame.GameMP.prototype = {
     textoTempo.fixedToCamera = true;
     textoTempo.align = 'center';
 
+    this.btnMusica = this.game.add.button(352,  47, 'btns', this.toggleSong, this, 0, 0, 0);
+    this.btnMusica.fixedToCamera = true;
+    if (!this.isMusicOn) {
+      this.btnMusica.tint = 0xff0000;
+    }
+    this.btnAudio = this.game.add.button(387,  47, 'btns', this.toggleAudio, this, 2, 2, 2);
+    this.btnAudio.fixedToCamera = true;
+    if (!this.isAudioOn) {
+      this.btnAudio.tint = 0xff0000;
+    }
+
+    this.btnReload = this.game.add.button(424,  47, 'btns', () => {this.quitGame(true);}, this, 4, 4, 4);
+    this.btnReload.fixedToCamera = true;
+
     this.somColeta = this.game.add.audio('coletou');
-
-
-
     // variavel inicio ajuda a contar tempo
     this.inicio = this.time.now;
     },
@@ -293,22 +305,27 @@ BasicGame.GameMP.prototype = {
       // Fim comandos p2
     },
 
-  quitGame: function (pointer) {
+  quitGame: function (isReload) {
 
     //  Here you should destroy anything you no longer need.
     //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
     let tempoFinal = this.time.elapsedSecondsSince(this.inicio).toFixed(3);
     
     if (this.isMusicOn) {
-      music.stop();
+      this.music.stop();
     }
     //  Then let's go back to the main menu.    
-    this.state.start('endState', true, false, tempoFinal, this.isAudioOn, this.isMusicOn);
+    if (isReload) {
+      this.state.start('MainMenu', true, false, this.isAudioOn, this.isMusicOn);
+    }
+    else {
+      this.state.start('endState', true, false, tempoFinal, this.isAudioOn, this.isMusicOn);
+    }
 
   },
 
   playMusic: function() {
-    music.play('', 0, 0.4, true);
+    this.music.play('', 0, 0.4, true);
   },
 
   collectStar: function(player, star) {
@@ -320,7 +337,7 @@ BasicGame.GameMP.prototype = {
         this.somColeta.play();
       }
       this.atualizaHud(player, star, indexItem);
-      if (++player.pontuaçao === 10) {
+      if (++player.pontuaçao === 5) {
         this.quitGame();
       }
     }
@@ -338,7 +355,31 @@ BasicGame.GameMP.prototype = {
 
   boostEstrela: function(player) {
     player.body.velocity.y -= 160;
-    
+  },
+
+  toggleSong: function() {
+    if (!this.music.isPlaying) {
+      this.music.play('', 0.4);
+      this.btnMusica.tint = 0xffffff;
+      this.isMusicOn = true;
+    }
+    else {
+      this.music.stop();
+      this.btnMusica.tint = 0xff0000;
+      this.isMusicOn = false;
+    }
+  },
+
+  toggleAudio: function() {
+    if (this.isAudioOn) {
+      this.isAudioOn = false;
+      this.btnAudio.tint = 0xff0000;
+      
+    }
+    else {
+      this.isAudioOn = true;
+      this.btnAudio.tint = 0xffffff;
+    }
   }
 
 };
